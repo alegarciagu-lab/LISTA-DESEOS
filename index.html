@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Deseos de Cumpleaños 🎁</title>
+    <style>
+        /* CSS - El diseño */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffeef8; /* Color rosa pastel */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #555;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 3px solid #ffb6c1;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            user-select: none;
+        }
+
+        .option:hover {
+            background-color: #fff0f3;
+            border-color: #ffb6c1;
+        }
+
+        /* Clase para la opción seleccionada (la correcta) */
+        .selected {
+            background-color: #ff4d6d !important;
+            color: white !important;
+            border-color: #ff4d6d !important;
+            transform: scale(1.05);
+        }
+
+        /* Animación de error cuando hace clic en lo incorrecto */
+        .shake {
+            animation: shake 0.4s;
+            border-color: red !important;
+            color: red !important;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .footer-msg {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🎁 Lista de Deseos 🎁</h1>
+        <p>Amor, elige el regalo que me vas a dar en diciembre:</p>
+
+        <div class="options-list">
+            <!-- Opción 1 -->
+            <div class="option" onclick="selectOption(this, false)">Un ramo de flores 🌸</div>
+            
+            <!-- Opción 2 -->
+            <div class="option" onclick="selectOption(this, false)">Una cena romántica 🍝</div>
+            
+            <!-- Opción 3: LA CORRECTA (Cámbiala por lo que quieras) -->
+            <div class="option" onclick="selectOption(this, true)">El iPhone 15 Pro Max / Un viaje / Lo que tú quieras 💖</div>
+            
+            <!-- Opción 4 -->
+            <div class="option" onclick="selectOption(this, false)">Un peluche gigante 🧸</div>
+            
+            <!-- Opción 5 -->
+            <div class="option" onclick="selectOption(this, false)">Chocolates 🍫</div>
+        </div>
+
+        <div id="final-msg" style="margin-top: 20px; font-weight: bold; color: #ff4d6d; display: none;">
+            ¡Excelente elección! No acepto devoluciones. 😉❤️
+        </div>
+
+        <div class="footer-msg">Cargando opciones disponibles...</div>
+    </div>
+
+    <script>
+        // JavaScript - La lógica de la broma
+        function selectOption(element, isCorrect) {
+            if (isCorrect) {
+                // Si es la correcta, se marca y sale el mensaje
+                element.classList.add('selected');
+                document.getElementById('final-msg').style.display = 'block';
+                
+                // Deshabilitar todas las demás opciones visualmente
+                const options = document.querySelectorAll('.option');
+                options.forEach(opt => {
+                    if (opt !== element) {
+                        opt.style.opacity = '0.5';
+                        opt.style.pointerEvents = 'none';
+                    }
+                });
+            } else {
+                // Si es incorrecta, hace la animación de vibrar y no se selecciona
+                element.classList.add('shake');
+                setTimeout(() => {
+                    element.classList.remove('shake');
+                }, 400);
+                
+                alert("Ops... esa opción no está disponible en este momento. Intenta con otra 😜");
+            }
+        }
+    </script>
+</body>
+</html>
